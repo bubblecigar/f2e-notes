@@ -8,9 +8,11 @@ import firebase from '@/firebaseConfig.js'
 
 firebase.auth().onAuthStateChanged(user => {
   store.commit('SET_CURRENT_USER', user);
-  store.getters.rootCollection.onSnapshot(snapshot => {
-    store.dispatch('readDocs');
-  })
+  if (store.getters.rootCollection) {
+    store.getters.rootCollection.onSnapshot(snapshot => {
+      store.dispatch('readDocs');
+    })
+  }
 })
 
 const store = new Vuex.Store({

@@ -6,7 +6,7 @@
     <button @click="logIn">logIn</button>
     <button @click="signOut">signOut</button>
     <span>loginMsg:{{loginMsg}}</span>
-    <span>currentUser:{{currentUser.email}}</span>
+    <span v-if="currentUser">currentUser:{{currentUser.email}}</span>
   </div>
 </template>
 
