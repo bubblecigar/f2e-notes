@@ -1,18 +1,54 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input type="email" v-model="email" />
+    <input type="password" v-model="password" />
+    <button @click="signUp">signUp</button>
+    <button @click="logIn">logIn</button>
+    <button @click="signOut">signOut</button>
+    <span>loginMsg:{{loginMsg}}</span>
+    <span>currentUser:{{currentUser.email}}</span>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
+import { mapState } from "vuex";
 export default {
-  name: 'home',
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
   },
+  computed: {
+    ...mapState(["currentUser", "loginMsg"])
+  },
+  methods: {
+    signUp() {
+      this.$store.dispatch("signUp", {
+        email: this.email,
+        password: this.password
+      });
+    },
+    logIn() {
+      this.$store.dispatch("logIn", {
+        email: this.email,
+        password: this.password
+      });
+    },
+    signOut() {
+      this.$store.dispatch("signOut");
+    }
+  }
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  input {
+    width: 200px;
+  }
+}
+</style>
